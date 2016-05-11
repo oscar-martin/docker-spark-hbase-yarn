@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+    hdfs:
+        build: ./hadoop
+        network_mode: "host"
+        container_name: "hdfs-master"
+        environment:
+            - NAMENODE_PORT=8020
+
+    hbase:
+        build: ./hbase
+        network_mode: "host"
+        container_name: "hbase-master"
+        environment:
+            - HOSTNAME=hbase-master
+            - NAMENODE_PORT=8020
+        entrypoint: /wait_for_it.sh localhost:8020 -- /opt/hbase-server
+        depends_on:
+            - hdfs

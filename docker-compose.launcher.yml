@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+    launcher:
+        build:
+            context: ./launcher
+            args:
+                HOSTNAME: "hbase-master"
+                NAMENODE_PORT: 8020
+
+        network_mode: "host"
+        container_name: "launcher"
+        volumes:
+            - ./launcher/ivy2:/root/.ivy2
+            - ./launcher/sbt:/root/.sbt
+            - ./launcher/uberjars:/uberjars
+            - ./launcher/yarn-launcher:/project
+        depends_on:
+            - hdfs

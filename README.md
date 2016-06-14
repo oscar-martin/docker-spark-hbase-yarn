@@ -27,6 +27,9 @@ Create local VM where to run these services
 
     $ docker-machine create -d virtualbox --virtualbox-memory "4096" dmhadoop
 
+Then, connect your current shell session to this new virtual machine:
+
+    $ eval $(docker-machine env dmhadoop)
 
 So you are one step away yet to configure your host to be able to work with the local environment. Your `/etc/hosts` and the one inside the VM you just created must be updated to be able to resolve some hostnames properly. For such a thing, I created a shell script that takes care of it:
 
